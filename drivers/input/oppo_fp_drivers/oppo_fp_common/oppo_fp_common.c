@@ -463,6 +463,5 @@ static void __exit oppo_fp_common_exit(void)
 }
 
 EXPORT_SYMBOL(opticalfp_irq_handler);
-
 subsys_initcall(oppo_fp_common_init);
 module_exit(oppo_fp_common_exit)
