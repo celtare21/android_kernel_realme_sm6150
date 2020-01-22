@@ -10,3 +10,4 @@ ifeq ($(CONFIG_OPPO_FINGERPRINT_QCOM),y)
 obj-$(CONFIG_OPPO_FINGERPRINT) += silead/
 endif
 
+subdir-ccflags-y += -DCONFIG_OPPO_FINGERPRINT_PROJCT=19771
