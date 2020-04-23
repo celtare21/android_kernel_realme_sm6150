@@ -65,6 +65,22 @@ unsigned long __stack_chk_guard __read_mostly;
 EXPORT_SYMBOL(__stack_chk_guard);
 #endif
 
+
+#ifdef VENDOR_EDIT
+/* YiXue.Ge@PSW.BSP.Kernel.Drv, 2017/11/27, add for some fault device can not reboot early */
+#include <soc/qcom/scm.h>
+static void do_restart_early(enum reboot_mode reboot_mode, const char *cmd);
+void do_poweroff_early(void);
+
+
+/*
+ * Function pointers to optional machine specific functions
+ */
+void (*pm_power_off)(void) = do_poweroff_early;
+EXPORT_SYMBOL_GPL(pm_power_off);
+
+void (*arm_pm_restart)(enum reboot_mode reboot_mode, const char *cmd) = do_restart_early;
+#else
 /*
  * Function pointers to optional machine specific functions
  */
@@ -72,6 +88,7 @@ void (*pm_power_off)(void);
 EXPORT_SYMBOL_GPL(pm_power_off);
 
 void (*arm_pm_restart)(enum reboot_mode reboot_mode, const char *cmd);
+#endif
 
 /*
  * This is our default idle handler.
@@ -130,6 +147,49 @@ void machine_halt(void)
 	smp_send_stop();
 	while (1);
 }
+
+#ifdef VENDOR_EDIT
+/* YiXue.Ge@PSW.BSP.Kernel.Drv, 2017/11/27, add for some fault device can not reboot early */
+
+/*maybe system crashed at early boot time .at that time maybe pm_power_off and
+  *arm_pm_restart are not defined
+  */
+#define PS_HOLD_ADDR 0xc264000 			//sm6150.dtsi
+#define SCM_IO_DEASSERT_PS_HOLD		2 	//msm-poweroff.c
+
+static void pull_down_pshold(void)
+{
+	struct scm_desc desc = {
+		.args[0] = 0,
+		.arginfo = SCM_ARGS(1),
+	};
+	void __iomem *msm_ps_hold = ioremap(PS_HOLD_ADDR , 4);;
+
+	printk("user do_msm_restart_early to reboot\n");
+	if (scm_is_call_available(SCM_SVC_PWR, SCM_IO_DEASSERT_PS_HOLD) > 0)
+	{
+		/* This call will be available on ARMv8 only */
+		scm_call2_atomic(SCM_SIP_FNID(SCM_SVC_PWR,
+				 SCM_IO_DEASSERT_PS_HOLD), &desc);
+
+	}
+	/* Fall-through to the direct write in case the scm_call "returns" */
+	if(msm_ps_hold)
+		__raw_writel(0, msm_ps_hold);
+
+	mdelay(10000);
+
+}
+static void do_restart_early(enum reboot_mode reboot_mode, const char *cmd)
+{
+	pull_down_pshold();
+}
+
+void do_poweroff_early(void)
+{
+	pull_down_pshold();
+}
+#endif
 
 /*
  * Power-off simply requires that the secondary CPUs stop performing any
