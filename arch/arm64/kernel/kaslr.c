@@ -34,7 +34,6 @@ static __init u64 get_kaslr_seed(void *fdt)
 	node = fdt_path_offset(fdt, "/chosen");
 	if (node < 0)
 		return 0;
-
 	prop = fdt_getprop_w(fdt, node, "kaslr-seed", &len);
 	if (!prop || len != sizeof(u64))
 		return 0;
