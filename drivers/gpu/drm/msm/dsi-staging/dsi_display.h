@@ -28,6 +28,12 @@
 #include "dsi_ctrl.h"
 #include "dsi_phy.h"
 #include "dsi_panel.h"
+#ifdef VENDOR_EDIT
+/* Gou shengjun@PSW.MM.Display.LCD.Stability,2018/11/21
+ * Add for save select panel and give different feature
+*/
+#include <linux/dsi_oppo_support.h>
+#endif /*VENDOR_EDIT*/
 
 #define DSI_CLIENT_NAME_SIZE		20
 #define MAX_CMDLINE_PARAM_LEN	 512
@@ -146,6 +152,7 @@ struct dsi_display_ext_bridge {
  * @ext_conn:         Pointer to external connector attached to DSI connector
  * @name:             Name of the display.
  * @display_type:     Display type as defined in device tree.
+ * @dsi_type:         Display label as defined in device tree.
  * @list:             List pointer.
  * @is_active:        Is display active.
  * @is_cont_splash_enabled:  Is continuous splash enabled
@@ -196,6 +203,7 @@ struct dsi_display {
 
 	const char *name;
 	const char *display_type;
+	const char *dsi_type;
 	struct list_head list;
 	bool is_cont_splash_enabled;
 	bool sw_te_using_wd;
@@ -684,6 +692,17 @@ enum dsi_pixel_format dsi_display_get_dst_format(
  * Return: Zero on Success
  */
 int dsi_display_cont_splash_config(void *display);
+#ifdef VENDOR_EDIT
+/* Gou shengjun@PSW.MM.Display.LCD.Stability,2018/10/21
+ * Add for support aod,hbm,seed
+*/
+struct dsi_display *get_main_display(void);
+
+/* Add for implement panel register read */
+int dsi_host_alloc_cmd_tx_buffer(struct dsi_display *display);
+int dsi_display_cmd_engine_enable(struct dsi_display *display);
+int dsi_display_cmd_engine_disable(struct dsi_display *display);
+#endif
 /*
  * dsi_display_get_panel_vfp - get panel vsync
  * @display: Pointer to private display structure
