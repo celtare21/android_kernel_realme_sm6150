@@ -65,9 +65,20 @@ obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
 obj-$(CONFIG_MEMORY_STATE_TIME)	+= memory_state_time.o
 obj-$(CONFIG_QPNP_MISC) 	+= qpnp-misc.o
 
+
+#ifdef VENDOR_EDIT
+#bajrang.patidar@BSP.Sensor, 2020/01/20. Add for oppo_iface
+obj-y += oppo_iface/
+#endif
+
 obj-$(CONFIG_OKL4_USER_VIRQ)	+= okl4-virq.o
 obj-$(CONFIG_OKL4_RINGBUF)	+= okl4-ringbuf.o
 obj-$(CONFIG_TEST_IRQ_REQUESTER) += irq_requester.o
+
+#ifdef VENDOR_EDIT
+# Mengmeng.Wang@SRC.System, 2018/08/28, Add for oiface
+obj-y				+= schedx.o
+#endif
 
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
@@ -91,3 +102,8 @@ $(obj)/lkdtm_rodata_objcopy.o: $(obj)/lkdtm_rodata.o FORCE
 obj-$(CONFIG_OKL4_USER_VIPC)    += okl4-vipc.o
 obj-$(CONFIG_OKL4_GUEST)        += okl4-panic.o
 obj-$(CONFIG_OKL4_LINK_SHBUF)    += okl4-link-shbuf.o
+#ifdef VENDOR_EDIT
+#//bajrang.patidar@BSP.kernel.Basic, 2019/09/03, add oppo motor for camera
+obj-$(CONFIG_OPPO_MOTOR) += oppo_motor/ motor.o
+obj-$(CONFIG_OPPO_RF_CABLE_MONITOR)	+= oppo_rf_cable_monitor.o
+#endif /*VENDOR_EDIT*/

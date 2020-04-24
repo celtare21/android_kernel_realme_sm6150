@@ -587,6 +587,14 @@ config TEST_IRQ_REQUESTER
 
 	  If in doubt, say N.
 
+config OPPO_RF_CABLE_MONITOR
+	bool "OPPO rf cable monitor system"
+	depends on OF
+	select PINMUX
+	default n
+	help
+	  Say Y here to enable OPPO rf cable monitor system support
+
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"
@@ -600,6 +608,10 @@ source "drivers/misc/genwqe/Kconfig"
 source "drivers/misc/echo/Kconfig"
 source "drivers/misc/cxl/Kconfig"
 source "drivers/misc/fpr_FingerprintCard/Kconfig"
+#ifdef VENDOR_EDIT
+#//bajrang.patidar@BSP.kernel.Basic, 2019/09/03, add oppo motor for camera
+source "drivers/misc/oppo_motor/Kconfig"
+#endif /*VENDOR_EDIT*/
 endmenu
 
 config OKL4_USER_VIPC
