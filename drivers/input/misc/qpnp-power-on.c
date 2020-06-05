@@ -2300,13 +2300,6 @@ static int qpnp_pon_configure_s3_reset(struct qpnp_pon *pon)
 	return 0;
 }
 
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-extern char pon_reason[];
-extern char poff_reason[];
-int preason_initialized;
-#endif /*VENDOR_EDIT*/
-
 static int qpnp_pon_read_hardware_info(struct qpnp_pon *pon, bool sys_reset)
 {
 	struct device *dev = pon->dev;
@@ -2352,20 +2345,8 @@ static int qpnp_pon_read_hardware_info(struct qpnp_pon *pon, bool sys_reset)
 
 	/* PON reason */
 	rc = qpnp_pon_read(pon, QPNP_PON_REASON1(pon), &pon_sts);
-#ifndef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
 	if (rc)
 		return rc;
-#else
-	if (rc) {
-		dev_err(dev,"Unable to read PON_RESASON1 reg rc: %d\n",rc);
-		if (!preason_initialized) {
-			snprintf(pon_reason, 128, "Unable to read PON_RESASON1 reg rc: %d\n", rc);
-			preason_initialized = 1;
-		}
-		return rc;
-	}
-#endif /*VENDOR_EDIT*/
 
 	if (sys_reset)
 		boot_reason = ffs(pon_sts);
@@ -2382,23 +2363,12 @@ static int qpnp_pon_read_hardware_info(struct qpnp_pon *pon, bool sys_reset)
 		dev_info(dev, "PMIC@SID%d Power-on reason: Unknown and '%s' boot\n",
 			 to_spmi_device(dev->parent)->usid,
 			 cold_boot ? "cold" : "warm");
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-		if (!preason_initialized)
-			snprintf(pon_reason, 128, "Unknown[0x%02X] and '%s' boot\n", pon_sts, cold_boot ? "cold" : "warm");
-#endif /*VENDOR_EDIT*/
 	} else {
 		pon->pon_trigger_reason = index;
 		dev_info(dev, "PMIC@SID%d Power-on reason: %s and '%s' boot\n",
 			 to_spmi_device(dev->parent)->usid,
 			 qpnp_pon_reason[index],
 			 cold_boot ? "cold" : "warm");
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-		if (!preason_initialized)
-			snprintf(pon_reason, 128, "[0x%02X]%s and '%s' boot\n", pon_sts,
-				qpnp_pon_reason[index],	cold_boot ? "cold" : "warm");
-#endif /*VENDOR_EDIT*/
 	}
 
 	/* POFF reason */
@@ -2413,13 +2383,6 @@ static int qpnp_pon_read_hardware_info(struct qpnp_pon *pon, bool sys_reset)
 		if (rc) {
 			dev_err(dev, "Register read failed, addr=0x%04X, rc=%d\n",
 				QPNP_POFF_REASON1(pon), rc);
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-			if (!preason_initialized) {
-				snprintf(poff_reason, 128, "Unable to read POFF_RESASON regs rc:%d\n", rc);
-				preason_initialized = 1;
-			}
-#endif /*VENDOR_EDIT*/
 			return rc;
 		}
 		poff_sts = buf[0] | (buf[1] << 8);
@@ -2428,25 +2391,11 @@ static int qpnp_pon_read_hardware_info(struct qpnp_pon *pon, bool sys_reset)
 	if (index >= ARRAY_SIZE(qpnp_poff_reason) || index < 0) {
 		dev_info(dev, "PMIC@SID%d: Unknown power-off reason\n",
 			 to_spmi_device(dev->parent)->usid);
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-		if (!preason_initialized) {
-			snprintf(poff_reason, 128, "Unknown[0x%04X]\n", poff_sts);
-			preason_initialized = 1;
-		}
-#endif /*VENDOR_EDIT*/
 	} else {
 		pon->pon_power_off_reason = index;
 		dev_info(dev, "PMIC@SID%d: Power-off reason: %s\n",
 			 to_spmi_device(dev->parent)->usid,
 			 qpnp_poff_reason[index]);
-#ifdef VENDOR_EDIT
-/* fanhui@PhoneSW.BSP, 2016/05/16, interface to read PMIC reg PON_REASON and POFF_REASON */
-		if (!preason_initialized) {
-			snprintf(poff_reason, 128, "[0x%04X]%s\n", poff_sts, qpnp_poff_reason[index]);
-			preason_initialized = 1;
-		}
-#endif /*VENDOR_EDIT*/
 	}
 
 	if ((pon->pon_trigger_reason == PON_SMPL ||
