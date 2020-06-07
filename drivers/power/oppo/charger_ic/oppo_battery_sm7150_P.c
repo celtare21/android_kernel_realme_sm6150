@@ -10887,7 +10887,7 @@ static void oppochg_debug_func(struct work_struct *w)
 		for (i = 0; i < 16; i ++) {
 			for (k = 0; k < 16; k ++)
 				smblib_read(chg, reg_base[j] + (16*i + k), &stat[k]);
-			chg_err("0x%04x [0x%02x 0x%02x 0x%02x 0x%02x], [0x%02x 0x%02x 0x%02x 0x%02x ], "
+			chg_debug("0x%04x [0x%02x 0x%02x 0x%02x 0x%02x], [0x%02x 0x%02x 0x%02x 0x%02x ], "
 				"[0x%02x 0x%02x 0x%02x 0x%02x], [0x%02x 0x%02x 0x%02x 0x%02x]\n",
 				reg_base[j] + (16 * i), stat[0], stat[1], stat[2], stat[3], stat[4], stat[5], stat[6],
 				stat[7], stat[8], stat[9], stat[10], stat[11], stat[12], stat[13], stat[14], stat[15]);
@@ -10921,7 +10921,7 @@ static void oppochg_debug_func(struct work_struct *w)
 		smblib_read(chg, USBIN_CURRENT_LIMIT_CFG_REG, &stat[2]);
 		smblib_read(chg, DCDC_OTG_CURRENT_LIMIT_CFG_REG, &stat[3]);
 		smblib_read(chg, 0x1140, &stat[4]);
-		chg_err("FCC 0x1061 = 0x%x, FV 0x1070 = 0x%x, ICL 0x1370 = 0x%x, OCL 0x1152 = 0x%x, OTG_ENABLE 0x1140 = 0x%x\n",
+		chg_debug("FCC 0x1061 = 0x%x, FV 0x1070 = 0x%x, ICL 0x1370 = 0x%x, OCL 0x1152 = 0x%x, OTG_ENABLE 0x1140 = 0x%x\n",
 			stat[0], stat[1], stat[2], stat[3], stat[4]);
 	}
 
