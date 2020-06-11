@@ -121,7 +121,6 @@ __attribute__((weak)) int reconfig_power_control(struct touchpanel_data *ts)
     return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_TOUCHPANEL_ALGORITHM
 __attribute__((weak)) int touch_algorithm_handle(struct touchpanel_data *ts, int obj_attention, struct point_info *points)
 {
@@ -139,11 +138,9 @@ __attribute__((weak)) void set_algorithm_direction(struct touchpanel_data *ts, i
 #endif
 
 
-=======
 bool has_da_nfc(void){
     return device_has_nfc();
 }
->>>>>>> 850d89673e17... drivers: input: create entry for nfc driver
 
 
 /*******Part3:Function  Area********************************/
