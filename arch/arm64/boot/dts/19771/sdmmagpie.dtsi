@@ -62,6 +62,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -101,6 +102,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_100>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -135,6 +137,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_200>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -168,6 +171,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_300>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -201,6 +205,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_400>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -234,6 +239,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
+			freq-energy-model;
 			cache-size = <0x8000>;
 			next-level-cache = <&L2_500>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -267,6 +273,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1740>;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
+			freq-energy-model;
 			cache-size = <0x10000>;
 			next-level-cache = <&L2_600>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -309,6 +316,7 @@
 			enable-method = "psci";
 			capacity-dmips-mhz = <1740>;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
+			freq-energy-model;
 			cache-size = <0x10000>;
 			next-level-cache = <&L2_700>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -476,7 +484,7 @@
 	};
 
 	chosen {
-		bootargs = "rcupdate.rcu_expedited=1 rcu_nocbs=0-7";
+		bootargs = "quiet noirqdebug rcu_nocbs=0-7";
 	};
 
 	soc: soc { };
@@ -1723,6 +1731,7 @@
 		qcom,adsp-remoteheap-vmid = <22 37>;
 		qcom,fastrpc-adsp-audio-pdr;
 		qcom,fastrpc-adsp-sensors-pdr;
+		qcom,qos-cores = <0 1 2 3 4 5>;
 
 		qcom,msm_fastrpc_compute_cb1 {
 			compatible = "qcom,msm-fastrpc-compute-cb";
