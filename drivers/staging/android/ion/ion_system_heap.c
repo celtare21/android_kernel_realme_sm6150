@@ -44,7 +44,7 @@ int order_to_index(unsigned int order)
 {
 	int i;
 
-	for (i = 0; i < NUM_ORDERS; i++)
+	for (i = 0; i < num_orders; i++)
 		if (order == orders[i])
 			return i;
 	BUG();
@@ -150,7 +150,7 @@ static struct page_info *alloc_largest_available(struct ion_system_heap *heap,
 	if (!info)
 		return ERR_PTR(-ENOMEM);
 
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		if (size < order_to_size(orders[i]))
 			continue;
 		if (max_order < orders[i])
@@ -186,7 +186,7 @@ static struct page_info *alloc_from_pool_preferred(
 	if (!info)
 		return ERR_PTR(-ENOMEM);
 
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		if (size < order_to_size(orders[i]))
 			continue;
 		if (max_order < orders[i])
@@ -490,7 +490,7 @@ static int ion_system_heap_shrink(struct ion_heap *heap, gfp_t gfp_mask,
 		only_scan = 1;
 
 	/* shrink the pools starting from lower order ones */
-	for (i = NUM_ORDERS - 1; i >= 0; i--) {
+	for (i = num_orders - 1; i >= 0; i--) {
 		nr_freed = 0;
 
 		for (j = 0; j < VMID_LAST; j++) {
@@ -539,7 +539,7 @@ static int ion_system_heap_debug_show(struct ion_heap *heap, struct seq_file *s,
 	struct ion_page_pool *pool;
 	int i, j;
 
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		pool = sys_heap->uncached_pools[i];
 		if (use_seq) {
 			seq_printf(s,
@@ -560,7 +560,7 @@ static int ion_system_heap_debug_show(struct ion_heap *heap, struct seq_file *s,
 			pool->low_count;
 	}
 
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		pool = sys_heap->cached_pools[i];
 		if (use_seq) {
 			seq_printf(s,
@@ -581,7 +581,7 @@ static int ion_system_heap_debug_show(struct ion_heap *heap, struct seq_file *s,
 			pool->low_count;
 	}
 
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		for (j = 0; j < VMID_LAST; j++) {
 			if (!is_secure_vmid_valid(j))
 				continue;
@@ -630,7 +630,7 @@ static void ion_system_heap_destroy_pools(struct ion_page_pool **pools)
 {
 	int i;
 
-	for (i = 0; i < NUM_ORDERS; i++)
+	for (i = 0; i < num_orders; i++)
 		if (pools[i]) {
 			ion_page_pool_destroy(pools[i]);
 			pools[i] = NULL;
@@ -649,7 +649,7 @@ static int ion_system_heap_create_pools(struct ion_system_heap *sys_heap,
 					bool cached)
 {
 	int i;
-	for (i = 0; i < NUM_ORDERS; i++) {
+	for (i = 0; i < num_orders; i++) {
 		struct ion_page_pool *pool;
 		gfp_t gfp_flags = low_order_gfp_flags;
 
@@ -673,7 +673,7 @@ static int ion_sys_heap_worker(void *data)
 	int i;
 
 	for (;;) {
-		for (i = 0; i < NUM_ORDERS; i++) {
+		for (i = 0; i < num_orders; i++) {
 			if (pool_count_below_lowmark(pools[i]))
 				ion_page_pool_refill(pools[i]);
 		}
