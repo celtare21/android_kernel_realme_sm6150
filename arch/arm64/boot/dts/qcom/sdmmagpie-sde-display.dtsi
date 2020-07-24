@@ -23,13 +23,16 @@
 #include "dsi-panel-sharp-dualdsi-wqhd-cmd.dtsi"
 #include "dsi-panel-rm69298-truly-amoled-fhd-plus-video.dtsi"
 #include "dsi-panel-rm69298-truly-amoled-fhd-plus-cmd.dtsi"
-#include "dsi-panel-rm69299-visionox-amoled-fhd-plus-video.dtsi"
 #include "dsi-panel-nt35695b-truly-fhd-video.dtsi"
 #include "dsi-panel-nt35695b-truly-fhd-cmd.dtsi"
-#include "dsi-panel-sharp-qsync-wqhd-cmd.dtsi"
-#include "dsi-panel-sharp-qsync-wqhd-video.dtsi"
-#include "dsi-panel-sharp-qsync-fhd-video.dtsi"
-#include "dsi-panel-sharp-qsync-fhd-cmd.dtsi"
+//#ifdef VENDOR_EDIT
+/* YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/04/16, add for 19031 lcd bringup */
+#include "dsi-panel_oppo18097samsung_ams641rw01_1080_2340.dtsi"
+#include "dsi-panel_oppo19031samsung_ams641rw01_1080_2400.dtsi"
+#include "dsi-panel_oppo19031samsung_ams641rw01_1080_2400_61fps.dtsi"
+#include "dsi-panel_oppo19031samsung_ams655ue01_1080_2400_61fps.dtsi"
+#include "dsi-panel_rm19771samsung_ams641rw16_1080_2340.dtsi"
+//#endif /*VENDOR_EDIT*/
 #include <dt-bindings/clock/mdss-10nm-pll-clk.h>
 
 &soc {
@@ -292,61 +295,67 @@
 		qcom,dsi-panel = <&dsi_nt35695b_truly_fhd_cmd>;
 	};
 
-	dsi_rm69299_visionox_amoled_vid_display: qcom,dsi-display@17 {
-		label = "dsi_rm69299_visionox_amoled_vid_display";
+//#ifdef VENDOR_EDIT
+/* YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/03/28, add for 19031 lcd birng up */
+	dsi_oppo18097samsung_ams641rw01_1080_2340_cmd_display: qcom,dsi-display@17 {
+		label = "dsi_oppo18097samsung_ams641rw01_1080_2340_cmd_display";
 		qcom,display-type = "primary";
 
 		qcom,dsi-ctrl-num = <0>;
 		qcom,dsi-phy-num = <0>;
 		qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0";
 
-		qcom,dsi-panel = <&dsi_rm69299_visionox_amoled_video>;
+		qcom,dsi-panel = <&dsi_oppo18097samsung_ams641rw01_1080_2340_cmd>;
 	};
 
-	dsi_sharp_qsync_wqhd_cmd_display: qcom,dsi-display@18 {
-		label = "dsi_sharp_qsync_wqhd_cmd_display";
+
+	dsi_oppo19031samsung_ams641rw01_1080_2400_cmd_display: qcom,dsi-display@18 {
+		label = "dsi_oppo19031samsung_ams641rw01_1080_2400_cmd_display";
 		qcom,display-type = "primary";
 
-		qcom,dsi-ctrl-num = <0 1>;
-		qcom,dsi-phy-num = <0 1>;
+		qcom,dsi-ctrl-num = <0>;
+		qcom,dsi-phy-num = <0>;
 		qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0";
 
-		qcom,dsi-panel = <&dsi_sharp_qsync_wqhd_cmd>;
+		qcom,dsi-panel = <&dsi_oppo19031samsung_ams641rw01_1080_2400_cmd>;
 	};
 
-	dsi_sharp_qsync_wqhd_video_display: qcom,dsi-display@19 {
-		label = "dsi_sharp_qsync_wqhd_video_display";
+
+	dsi_oppo19031samsung_ams641rw01_1080_2400_61fps_cmd_display: qcom,dsi-display@19 {
+		label = "dsi_oppo19031samsung_ams641rw01_1080_2400_61fps_cmd_display";
 		qcom,display-type = "primary";
 
-		qcom,dsi-ctrl-num = <0 1>;
-		qcom,dsi-phy-num = <0 1>;
+		qcom,dsi-ctrl-num = <0>;
+		qcom,dsi-phy-num = <0>;
 		qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0";
 
-		qcom,dsi-panel = <&dsi_sharp_qsync_wqhd_video>;
+		qcom,dsi-panel = <&dsi_oppo19031samsung_ams641rw01_1080_2400_61fps_cmd>;
 	};
 
-	dsi_sharp_qsync_fhd_video_display: qcom,dsi-display@20 {
-		label = "dsi_sharp_qsync_fhd_video_display";
+
+	dsi_oppo19031samsung_ams655ue01_1080_2400_61fps_cmd_display: qcom,dsi-display@20 {
+		label = "dsi_oppo19031samsung_ams655ue01_1080_2400_61fps_cmd_display";
 		qcom,display-type = "primary";
 
-		qcom,dsi-ctrl-num = <0 1>;
-		qcom,dsi-phy-num = <0 1>;
+		qcom,dsi-ctrl-num = <0>;
+		qcom,dsi-phy-num = <0>;
 		qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0";
 
-		qcom,dsi-panel = <&dsi_sharp_qsync_fhd_video>;
+		qcom,dsi-panel = <&dsi_oppo19031samsung_ams655ue01_1080_2400_61fps_cmd>;
 	};
 
-	dsi_sharp_qsync_fhd_cmd_display: qcom,dsi-display@21 {
-		label = "dsi_sharp_qsync_fhd_cmd_display";
+
+	dsi_rm19771_samsung_ams641rw16_1080_2340_cmd_display: qcom,dsi-display@21 {
+		label = "dsi_rm19771_samsung_ams641rw16_1080_2340_cmd_display";
 		qcom,display-type = "primary";
 
-		qcom,dsi-ctrl-num = <0 1>;
-		qcom,dsi-phy-num = <0 1>;
+		qcom,dsi-ctrl-num = <0>;
+		qcom,dsi-phy-num = <0>;
 		qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0";
 
-		qcom,dsi-panel = <&dsi_sharp_qsync_fhd_cmd>;
+		qcom,dsi-panel = <&dsi_rm19771samsung_ams641rw16_1080_2340_cmd>;
 	};
-
+//#endif /*VENDOR_EDIT*/
 	sde_dsi: qcom,dsi-display {
 		compatible = "qcom,dsi-display";
 
@@ -374,7 +383,15 @@
 		qcom,platform-reset-gpio = <&pm6150l_gpios 9 0>;
 		qcom,panel-te-source = <0>;
 
-		vddio-supply = <&pm6150_l13>;
+//#ifndef VENDOR_EDIT
+/*
+ * YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/03/28,
+ * modify for 19031 lcd bring up
+ */
+		//vddio-supply = <&pm6150_l13>;
+//#else /*VENDOR_EDIT*/
+		vddio-supply = <&pm6150_l12>;
+//#endif /*VENDOR_EDIT*/
 		vdda-3p3-supply = <&pm6150_l18>;
 		lab-supply = <&lcdb_ldo_vreg>;
 		ibb-supply = <&lcdb_ncp_vreg>;
@@ -395,12 +412,14 @@
 			&dsi_rm69298_truly_amoled_cmd_display
 			&dsi_nt35695b_truly_fhd_video_display
 			&dsi_nt35695b_truly_fhd_cmd_display
-			&dsi_rm69299_visionox_amoled_vid_display
-			&dsi_sharp_qsync_wqhd_cmd_display
-			&dsi_sharp_qsync_wqhd_video_display
-			&dsi_sharp_qsync_fhd_video_display
-			&dsi_sharp_qsync_fhd_cmd_display>;
-
+//#ifdef VENDOR_EDIT
+/* YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/03/28, add for 19031 lcd bringup */
+			&dsi_oppo18097samsung_ams641rw01_1080_2340_cmd_display
+			&dsi_oppo19031samsung_ams641rw01_1080_2400_cmd_display
+			&dsi_oppo19031samsung_ams641rw01_1080_2400_61fps_cmd_display
+			&dsi_oppo19031samsung_ams655ue01_1080_2400_61fps_cmd_display
+			&dsi_rm19771_samsung_ams641rw16_1080_2340_cmd_display>;
+//#endif /*VENDOR_EDIT*/
 	};
 
 	sde_dsi1: qcom,dsi-display-secondary {
@@ -432,6 +451,11 @@
 		qcom,dsi-display-list =
 			<&dsi_nt35695b_truly_fhd_video_sec_display
 			&dsi_nt35695b_truly_fhd_cmd_sec_display>;
+
+//#ifdef VENDOR_EDIT
+/* YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/04/16, add for 19031 lcd bringup */
+		status = "disable";
+//#endif /*VENDOR_EDIT*/
 	};
 
 	sde_wb: qcom,wb-display@0 {
@@ -443,10 +467,22 @@
 
 &sde_dp {
 	qcom,dp-usbpd-detection = <&pm6150_pdphy>;
+//#ifdef VENDOR_EDIT
+/* Yichun.Chen  PSW.BSP.CHG  2019-06-05  for disable usbdp */
+	status = "disabled";
+//#endif
 };
 
 &mdss_mdp {
-	connectors = <&sde_rscc &sde_wb &sde_dsi &sde_dp &sde_dsi1>;
+//#ifndef VENDOR_EDIT
+/*
+ * YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/04/16,
+ * modify for 19031 lcd bringup
+ */
+		//connectors = <&sde_rscc &sde_wb &sde_dsi &sde_dp &sde_dsi1>;
+//#else /*VENDOR_EDIT*/
+		connectors = <&sde_rscc &sde_wb &sde_dsi>;
+//#endif /*VENDOR_EDIT*/
 };
 
 &dsi_sw43404_amoled_video {
@@ -462,6 +498,9 @@
 	qcom,dsi-supported-dfps-list = <60 57 55>;
 	qcom,mdss-dsi-pan-enable-dynamic-fps;
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_hfp";
+	qcom,dsi-dyn-clk-enable;
+	qcom,dsi-dyn-clk-list =
+		<534712320 532484352 530256384 525800448 528028416>;
 	qcom,mdss-dsi-display-timings {
 		timing@0{
 			qcom,mdss-dsi-panel-phy-timings = [00 13 05 04 1F 1E 05
@@ -471,6 +510,87 @@
 		};
 	};
 };
+
+
+//#ifdef VENDOR_EDIT
+/* YongPeng.Yi@PSW.MM.Display.LCD.Stability, 2019/04/16, add for 19031 lcd bringup */
+&dsi_oppo18097samsung_ams641rw01_1080_2340_cmd {
+	qcom,ulps-enabled;
+	qcom,mdss-dsi-t-clk-post = <0x0E>;
+	qcom,mdss-dsi-t-clk-pre = <0x35>;
+	qcom,mdss-dsi-display-timings {
+		timing@0{
+			qcom,mdss-dsi-panel-phy-timings = [00 22 05 09 25 23 09 09 06 03 04 00];
+			//[00 13 05 04 1F 1E 05	05 03 02 04 00];
+
+			qcom,mdss-mdp-transfer-time-us = <13000>;
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+
+&dsi_oppo19031samsung_ams641rw01_1080_2400_cmd {
+	qcom,ulps-enabled;
+	qcom,mdss-dsi-t-clk-post = <0x0E>;
+	qcom,mdss-dsi-t-clk-pre = <0x35>;
+	qcom,mdss-dsi-display-timings {
+		timing@0{
+			qcom,mdss-dsi-panel-phy-timings = [00 22 05 09 25 23 09 09 06 03 04 00];
+			//[00 13 05 04 1F 1E 05	05 03 02 04 00];
+
+			qcom,mdss-mdp-transfer-time-us = <13000>;
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+
+&dsi_oppo19031samsung_ams641rw01_1080_2400_61fps_cmd {
+	qcom,ulps-enabled;
+	qcom,mdss-dsi-t-clk-post = <0x0E>;
+	qcom,mdss-dsi-t-clk-pre = <0x35>;
+	qcom,mdss-dsi-display-timings {
+		timing@0{
+			qcom,mdss-dsi-panel-phy-timings = [00 22 05 09 25 23 09 09 06 03 04 00];
+			//[00 13 05 04 1F 1E 05	05 03 02 04 00];
+
+			qcom,mdss-mdp-transfer-time-us = <13000>;
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+
+&dsi_oppo19031samsung_ams655ue01_1080_2400_61fps_cmd {
+	qcom,ulps-enabled;
+	qcom,mdss-dsi-t-clk-post = <0x0E>;
+	qcom,mdss-dsi-t-clk-pre = <0x35>;
+	qcom,mdss-dsi-display-timings {
+		timing@0{
+			qcom,mdss-dsi-panel-phy-timings = [00 22 05 09 25 23 09 09 06 03 04 00];
+			//[00 13 05 04 1F 1E 05	05 03 02 04 00];
+
+			qcom,mdss-mdp-transfer-time-us = <13000>;
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+
+&dsi_rm19771samsung_ams641rw16_1080_2340_cmd {
+	qcom,ulps-enabled;
+	qcom,mdss-dsi-display-timings {
+		timing@0{
+			qcom,mdss-dsi-panel-phy-timings = [00 22 09 09 25 23 09 09 06 03 04 00];
+
+			qcom,mdss-mdp-transfer-time-us = <13000>;
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+//#endif /*VENDOR_EDIT*/
 
 &dsi_sw43404_amoled_cmd {
 	qcom,ulps-enabled;
@@ -499,8 +619,8 @@
 
 &dsi_sw43404_amoled_fhd_plus_cmd {
 	qcom,ulps-enabled;
-	qcom,mdss-dsi-t-clk-post = <0x09>;
-	qcom,mdss-dsi-t-clk-pre = <0x1B>;
+	qcom,mdss-dsi-t-clk-post = <0x0A>;
+	qcom,mdss-dsi-t-clk-pre = <0x21>;
 	qcom,esd-check-enabled;
 	qcom,mdss-dsi-panel-status-check-mode = "reg_read";
 	qcom,mdss-dsi-panel-status-command = [06 01 00 01 00 00 01 0a];
@@ -510,9 +630,8 @@
 	qcom,mdss-dsi-panel-status-read-length = <1>;
 	qcom,mdss-dsi-display-timings {
 		timing@0{
-			qcom,mdss-dsi-panel-phy-timings = [00 0F 03 03 1E 1D 04
-				04 02 03 04 00];
-			qcom,mdss-dsi-panel-clockrate = <354585600>;
+			qcom,mdss-dsi-panel-phy-timings = [00 13 05 04 1F 1E 05
+				05 03 02 04 00];
 			qcom,display-topology = <1 1 1>;
 			qcom,default-topology-index = <0>;
 			qcom,partial-update-enabled = "single_roi";
@@ -534,9 +653,6 @@
 	qcom,dsi-supported-dfps-list = <60 57 55>;
 	qcom,mdss-dsi-pan-enable-dynamic-fps;
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_hfp";
-	qcom,dsi-dyn-clk-enable;
-	qcom,dsi-dyn-clk-list =
-		<534712320 532484352 530256384 525800448 528028416>;
 	qcom,mdss-dsi-display-timings {
 		timing@0{
 			qcom,mdss-dsi-panel-phy-timings = [00 2e 08 0a 12 18 08
@@ -775,105 +891,6 @@
 			qcom,mdss-dsi-panel-phy-timings = [00 13 05 04 1F 1E 05
 				05 03 02 04 00];
 			qcom,display-topology = <1 0 1>;
-			qcom,default-topology-index = <0>;
-		};
-	};
-};
-
-&dsi_rm69299_visionox_amoled_video {
-	qcom,mdss-dsi-t-clk-post = <0x0E>;
-	qcom,mdss-dsi-t-clk-pre = <0x31>;
-	qcom,mdss-dsi-display-timings {
-		timing@0{
-			qcom,mdss-dsi-panel-phy-timings = [00 20 08 08 24 23 08
-				08 05 02 04 00];
-			qcom,display-topology = <1 0 1>;
-			qcom,default-topology-index = <0>;
-		};
-	};
-};
-
-&dsi_sharp_qsync_wqhd_cmd {
-	qcom,mdss-dsi-t-clk-post = <0x0B>;
-	qcom,mdss-dsi-t-clk-pre = <0x24>;
-	qcom,mdss-dsi-display-timings {
-		timing@0{ /* 2k */
-			qcom,mdss-dsi-panel-phy-timings = [00 0B 03 02 1D 1C 03
-				03 01 02 04 00];
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-		timing@1{ /* fhd */
-			qcom,mdss-dsi-panel-phy-timings = [00 0A 01 02 1B 1B 02
-				02 00 02 04 00];
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-		timing@2{
-			qcom,mdss-dsi-panel-phy-timings = [00 11 04 04 1E 1E 04
-				04 02 02 04 00];
-			qcom,mdss-mdp-transfer-time-us = <8500>;
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-		timing@3{
-			qcom,mdss-dsi-panel-phy-timings = [00 16 06 05 20 1F 06
-				06 03 02 04 00];
-			qcom,mdss-mdp-transfer-time-us = <5800>;
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-	};
-};
-
-&dsi_sharp_qsync_wqhd_video {
-	qcom,mdss-dsi-t-clk-post = <0x0A>;
-	qcom,mdss-dsi-t-clk-pre = <0x1E>;
-	qcom,mdss-dsi-display-timings {
-		timing@0{
-			qcom,mdss-dsi-panel-phy-timings = [00 12 04 04 1E 1E 04
-				04 02 02 04 00];
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-	};
-};
-
-&dsi_sharp_qsync_fhd_video {
-	qcom,mdss-dsi-t-clk-post = <0x0A>;
-	qcom,mdss-dsi-t-clk-pre = <0x20>;
-	qcom,mdss-dsi-display-timings {
-		timing@0{
-			qcom,mdss-dsi-panel-phy-timings = [00 13 04 04 1F 1F 04
-				05 03 02 04 00];
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-	};
-};
-
-&dsi_sharp_qsync_fhd_cmd {
-	qcom,mdss-dsi-t-clk-post = <0x09>;
-	qcom,mdss-dsi-t-clk-pre = <0x12>;
-	qcom,mdss-dsi-display-timings {
-		timing@0{
-			qcom,mdss-dsi-panel-phy-timings = [00 0A 01 02 1B 1B 02
-				02 00 02 04 00];
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-		timing@1{
-			qcom,mdss-dsi-panel-phy-timings = [00 0C 02 02 1D 1C 03
-				03 01 02 04 00];
-			qcom,mdss-mdp-transfer-time-us = <8500>;
-			qcom,display-topology = <2 2 2>;
-			qcom,default-topology-index = <0>;
-		};
-		timing@2{
-			qcom,mdss-dsi-panel-phy-timings = [00 0F 03 03 1E 1D 04
-				04 02 02 04 00];
-			qcom,mdss-mdp-transfer-time-us = <5800>;
-			qcom,display-topology = <2 2 2>;
 			qcom,default-topology-index = <0>;
 		};
 	};
