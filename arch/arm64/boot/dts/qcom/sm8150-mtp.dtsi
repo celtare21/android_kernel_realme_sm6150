@@ -19,9 +19,6 @@
 #include "sm8150-thermal-overlay.dtsi"
 
 &qupv3_se4_i2c {
-#address-cells = <1>;
-#size-cells = <0>;
-
 #include "smb1390.dtsi"
 #include "smb1355.dtsi"
 };
@@ -252,10 +249,6 @@
 
 &qupv3_se9_i2c {
 	status = "ok";
-
-	#address-cells = <1>;
-	#size-cells = <0>;
-
 	nq@28 {
 		compatible = "qcom,nq-nci";
 		reg = <0x28>;
@@ -324,7 +317,6 @@
 	qcom,hold-soc-while-full;
 	qcom,linearize-soc;
 	qcom,five-pin-battery;
-	qcom,cl-wt-enable;
 	/* ESR fast calibration */
 	qcom,fg-esr-timer-chg-fast = <0 7>;
 	qcom,fg-esr-timer-dischg-fast = <0 7>;
@@ -668,8 +660,6 @@
 };
 
 &smb1390_charger {
-	/delete-property/ compatible;
-	compatible = "qcom,smb1390-charger-psy";
 	io-channels = <&pm8150b_vadc ADC_AMUX_THM2>;
 	io-channel-names = "cp_die_temp";
 	status = "ok";

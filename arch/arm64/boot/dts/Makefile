@@ -15,7 +15,7 @@
 # dts-dirs += marvell
 # dts-dirs += mediatek
 # dts-dirs += nvidia
-# dts-dirs += qcom
+dts-dirs += qcom
 # dts-dirs += realtek
 # dts-dirs += renesas
 # dts-dirs += rockchip
@@ -24,7 +24,6 @@
 # dts-dirs += xilinx
 # dts-dirs += lg
 # dts-dirs += zte
-dts-dirs += 19771
 subdir-y	:= $(dts-dirs)
 
 dtstree		:= $(srctree)/$(src)

@@ -576,6 +576,10 @@
 	sde_dp: qcom,dp_display@0{
 		cell-index = <0>;
 		compatible = "qcom,dp-display";
+//#ifdef VENDOR_EDIT
+/* Yichun.Chen  PSW.BSP.CHG  2019-06-05  for disable usbdp */
+		status = "disabled";
+//#endif
 
 		vdda-1p2-supply = <&pm6150l_l3>;
 		vdda-0p9-supply = <&pm6150_l4>;
